@@ -1,6 +1,8 @@
 const express = require('express');
 const postsRouter = express.Router();
 
+postsRouter.use(express.static('public'));
+
 // INDEX
 postsRouter.get('/', (req, res) => {
   res.send('Lista dei posts');
