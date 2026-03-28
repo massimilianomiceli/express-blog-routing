@@ -1,16 +1,21 @@
 const express = require('express');
 const postsRouter = express.Router();
+const elencoPost = require('../data/elenco');
 
 postsRouter.use(express.static('public'));
 
 // INDEX
 postsRouter.get('/', (req, res) => {
-  res.send('Lista dei posts');
+  res.json(elencoPost);
 });
 
 // SHOW
 postsRouter.get('/:id', (req, res) => {
-  res.send(`Visualizzazione del post ${req.params.id}`);
+  const singoloPost = elencoPost.find(
+    (post) => post.id === Number(req.params.id),
+  );
+
+  res.json(singoloPost || { error: 'Post non trovato' });
 });
 
 // STORE
